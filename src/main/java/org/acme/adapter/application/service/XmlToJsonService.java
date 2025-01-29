@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.acme.adapter.domain.JsonModel;
 import org.acme.adapter.domain.XmlModel;
+import org.acme.adapter.infrastructure.handlers.XmlParsingException;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -15,7 +16,7 @@ public class XmlToJsonService {
             XmlMapper xmlMapper = new XmlMapper();
             return xmlMapper.readValue(xmlData, XmlModel.class);
         } catch (Exception e) {
-            throw new RuntimeException("Error parsing XML", e);
+            throw new XmlParsingException("Error parsing XML: " + e.getMessage());
         }
     }
 
@@ -25,7 +26,8 @@ public class XmlToJsonService {
             JsonModel jsonModel = new JsonModel(xmlModel.getMessage());
             return objectMapper.writeValueAsString(jsonModel);
         } catch (Exception e) {
-            throw new RuntimeException("Error converting to JSON", e);
+            throw new RuntimeException("Error converting to JSON: " + e.getMessage());
         }
     }
 }
+
