@@ -9,10 +9,6 @@ public class GlobalExceptionHandler implements ExceptionMapper<Throwable> {
 
     @Override
     public Response toResponse(Throwable exception) {
-        // Log del error (opcional)
-        exception.printStackTrace();
-
-        // Respuesta estándar con mensaje de error y código HTTP
         ErrorResponse errorResponse = new ErrorResponse(
                 "INTERNAL_SERVER_ERROR",
                 exception.getMessage()

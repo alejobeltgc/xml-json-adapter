@@ -1,9 +1,7 @@
 package org.acme.adapter.application.usecase;
 
-import org.acme.adapter.domain.JsonModel;
-import org.acme.adapter.domain.XmlModel;
-import org.acme.adapter.application.service.XmlToJsonService;
 
+import org.acme.adapter.application.service.XmlToJsonService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -18,7 +16,6 @@ public class ConvertXmlToJsonUseCase {
     }
 
     public String convert(String xmlData) {
-        XmlModel xmlModel = xmlToJsonService.parseXml(xmlData);
-        return xmlToJsonService.convertToJson(xmlModel);
+        return xmlToJsonService.convertToJson(xmlToJsonService.parseXml(xmlData));
     }
 }
